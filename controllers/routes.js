@@ -151,7 +151,7 @@ app.get("/saved-articles", (req, res) => {
 // Create a new note or replace an existing note
 app.post("/save-note/:id", (req, res) => {
 
-  console.log(req.body);
+  console.log(req.params.title);
   // Create a new note and pass the req.body to the entry
   const newNote = new Note(req.body);
 

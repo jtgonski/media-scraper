@@ -11,10 +11,15 @@
 // 	})
 // })
 
-$(document).on("click", ".save-article", () => {
+// const saveArticle = (id) => {
+// 	console.log("this worked")
 
-	const articleId = $(".save-article").attr("data-id")
-	console.log(articleId); 
+// }
+
+
+$(document).on("click", "#save-article", function() {
+	const articleId = $(this).attr("data-id");
+	console.log(`article id: ${articleId}`); 
 
 	$.ajax({
 		method: "GET", 
@@ -24,16 +29,16 @@ $(document).on("click", ".save-article", () => {
 		console.log(data); 
 		console.log("save complete"); 
 	});
-})
+});
 
 //create and save note
-$(document).on("click", "#save-note", () => {
+$(document).on("click", "#save-note", function() {
 
 
-	const articleId = $("#save-note").attr("data-id");
+	const articleId = $(this).attr("data-id");
 	const noteTitle = $("#note-title").val(); 
 	const noteBody = $("#note-body").val(); 
-	console.log(`Article ID: ${articleId} Title: ${noteTitle} Body: ${noteBody}`);
+	console.log("article id: " + articleId + " note title: " + noteTitle + " Note Body: " + noteBody);
 
 	$.ajax({
 		method: "POST", 
@@ -43,7 +48,7 @@ $(document).on("click", "#save-note", () => {
 			body: noteBody
 		}
 	})
-	.done((data) => {
+	.done(function(data) {
 		console.log("data:", data);
 
 	});
