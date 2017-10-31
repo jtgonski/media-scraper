@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create article schema
-const ArticleSchema = new Schema({
+const SavedSchema = new Schema({
   // title is a required string
   title: {
     type: String,
@@ -22,16 +22,21 @@ const ArticleSchema = new Schema({
   date: {
     type: Date, 
     required: true
+  },
+  // This only saves one note's ObjectId, ref refers to the Note model
+  note: {
+    type: Schema.Types.ObjectId,
+    ref: "Note"
   }, 
   saved: {
     type: Boolean, 
-    default: false
+    default: true
   }
 
 });
 
 // Create the Article model with the ArticleSchema
-const Article = mongoose.model("Article", ArticleSchema);
+const Saved = mongoose.model("Saved", SavedSchema);
 
 // Export the model
-module.exports = Article;
+module.exports = Saved;

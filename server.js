@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 // Requiring our Note and Article models
 const Note = require("./models/Note.js");
 const Article = require("./models/Article.js");
+const Saved = require("./models/Saved.js");
 // Our scraping tools
 const request = require("request");
 const cheerio = require("cheerio");
@@ -37,6 +38,7 @@ app.use(express.static("public"));
 
 // Database configuration with mongoose
 mongoose.connect("mongodb://localhost/media");
+// mongoose.connect("mongodb://heroku_9t0lpr5j:gt6shbdpundku1i2363mbqnuiv@ds231725.mlab.com:31725/heroku_9t0lpr5j");
 const db = mongoose.connection;
 
 // Show any mongoose errors
@@ -50,7 +52,7 @@ db.once("open", function() {
 });
 
 
-app.listen(3000, function() {
+app.listen(PORT, function() {
   console.log(`App running on port ${PORT}`);
 });
 
