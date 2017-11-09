@@ -75,7 +75,7 @@ app.get("/scrape", function(req, res) {
 // This will get the articles we scraped from the mongoDB and display to the articles page
 app.get("/articles", (req, res) => {
   // Grab every doc in the Articles array
-  Article.find().sort({ date: -1 }).limit(15).exec( (error, doc) => {
+  Article.find().sort({ date: -1 }).limit(50).exec( (error, doc) => {
     const hbsObject = {
       article: doc
     }
@@ -96,6 +96,7 @@ app.get("/articles", (req, res) => {
 
 // save an article to the saved collections
 app.get("/articles/:id", (req, res) => {
+
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
   Article.findOne({ "_id": req.params.id }).exec((error, doc) => {
     console.log(doc)
@@ -105,6 +106,15 @@ app.get("/articles/:id", (req, res) => {
       teaser: doc.teaser,
       date: doc.date
     }
+
+    // Saved.find({ "title": doc.title }).exec((error3, doc3) => {
+    //   if (error) {
+    //     console.log(error)
+    //   }
+    //   else {
+    //     console.log(`DOC3: ${doc3}`)
+    //   }
+    // });
 
     var entry = new Saved(savedArticleInfo); 
 
@@ -122,7 +132,7 @@ app.get("/articles/:id", (req, res) => {
     }
     // Otherwise, send the doc to the browser as a json object
     else {
-      console.log(`doc: ${doc}`);
+      console.log(`We sucessfully found and updated the article`);
     }
   });
 });
@@ -151,7 +161,9 @@ app.get("/saved-articles", (req, res) => {
 // Create a new note or replace an existing note
 app.post("/save-note/:id", (req, res) => {
 
-  console.log(req.params.title);
+  console.log("req.body ", req.body);
+  console.log("req.query: ", req.query);
+  console.log("req", req); 
   // Create a new note and pass the req.body to the entry
   const newNote = new Note(req.body);
 
@@ -175,7 +187,7 @@ app.post("/save-note/:id", (req, res) => {
         }
         else {
           // Or send the document to the browser
-          console.log(doc);
+          console.log("Doc:", doc);
         }
       });
     }

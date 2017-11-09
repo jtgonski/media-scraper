@@ -22,11 +22,6 @@ const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Import routes and give the server access to them.
-const routes = require("./controllers/routes.js")(app);
-// app.use("/", routes);
-
-
 // Use morgan and body parser with our app
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({
@@ -35,10 +30,15 @@ app.use(bodyParser.urlencoded({
 
 // Make public a static dir
 app.use(express.static("public"));
+app.use(bodyParser.json());
+
+// Import routes and give the server access to them.
+const routes = require("./controllers/routes.js")(app);
+// app.use("/", routes);
 
 // Database configuration with mongoose
-// mongoose.connect("mongodb://localhost/media");
-mongoose.connect("mongodb://heroku_9t0lpr5j:gt6shbdpundku1i2363mbqnuiv@ds231725.mlab.com:31725/heroku_9t0lpr5j");
+mongoose.connect("mongodb://localhost/media");
+// mongoose.connect("mongodb://heroku_9t0lpr5j:gt6shbdpundku1i2363mbqnuiv@ds231725.mlab.com:31725/heroku_9t0lpr5j");
 const db = mongoose.connection;
 
 // Show any mongoose errors

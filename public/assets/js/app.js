@@ -17,13 +17,13 @@
 // }
 
 
-$(document).on("click", "#save-article", function() {
+$(document).on("click", "#save-article", function()  {
 	const articleId = $(this).attr("data-id");
 	console.log(`article id: ${articleId}`); 
 
 	$.ajax({
 		method: "GET", 
-		url: /articles/ + articleId
+		url: "/articles/" + articleId
 	})
 	.done((data) => {
 		console.log(data); 
@@ -42,11 +42,13 @@ $(document).on("click", "#save-note", function() {
 
 	$.ajax({
 		method: "POST", 
-		url: /save-note/ + articleId,
-		data: {
-			title: noteTitle, 
-			body: noteBody
-		}
+		url: "/save-note/" + articleId,
+		dataType: "json", 
+		data:
+			{
+				title: noteTitle,
+				body: noteBody
+			}
 	})
 	.done(function(data) {
 		console.log("data:", data);
