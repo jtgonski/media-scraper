@@ -39,8 +39,14 @@ const routes = require("./controllers/routes.js")(app);
 // app.use("/", routes);
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/media");
+// mongoose.connect("mongodb://localhost/media");
 // mongoose.connect("mongodb://heroku_9t0lpr5j:gt6shbdpundku1i2363mbqnuiv@ds231725.mlab.com:31725/heroku_9t0lpr5j");
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/media" || "mongodb://heroku_9t0lpr5j:gt6shbdpundku1i2363mbqnuiv@ds231725.mlab.com:31725/heroku_9t0lpr5j",
+  {
+    useMongoClient: true
+  }
+);
 const db = mongoose.connection;
 
 // Show any mongoose errors
